@@ -706,6 +706,36 @@ const server = http.createServer(async (req, res) => {
 
 ensureDataDir();
 
+function ensureAdminAccount() {
+  let existing = null;
+  try { existing = readJSON(ADMIN_FILE, null); } catch { existing = null; }
+  if (existing) return;
+  const username = String(process.env.ADMIN_USER || 'saidhyeya').trim() || 'saidhyeya';
+  const password =
+    process.env.ADMIN_PASS ||
+    process.env.ADMIN_BOOTSTRAP_PASSWORD ||
+    process.env.ADMIN_PASSWORD ||
+    'tXR3s_abT4gPuw';
+  if (typeof password !== 'string' || password.length < 8) {
+    console.warn('⚠ Admin bootstrap skipped: password shorter than 8 characters.');
+    return;
+  }
+  try {
+    const { salt, hash } = hashPassword(password);
+    writeJSON(ADMIN_FILE, {
+      username,
+      salt,
+      hash,
+      algorithm: 'scrypt',
+      updatedAt: new Date().toISOString()
+    });
+    console.log('✔ Bootstrapped admin account: ' + username);
+  } catch (err) {
+    console.error('✖ Admin bootstrap failed:', err.message);
+  }
+}
+ensureAdminAccount();
+
 function banner() {
   const admin = readJSON(ADMIN_FILE, null);
   const line = '─'.repeat(60);
