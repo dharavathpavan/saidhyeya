@@ -416,8 +416,8 @@ function requireCsrf(req, res, session) {
   return true;
 }
 
-async function handleAdmin(req, res, pathname) {
-  const rel = pathname.slice(ADMIN_PATH.length); // '' | '/api/...' | '/app.css'
+async function handleAdmin(req, res, pathname, basePath = ADMIN_PATH) {
+  const rel = pathname.slice(basePath.length); // '' | '/api/...' | '/app.css'
   const method = req.method;
 
   /* ---- login / logout / session ---- */
@@ -483,7 +483,7 @@ async function handleAdmin(req, res, pathname) {
   // Force a trailing slash so the page's relative asset URLs resolve
   // to the private path instead of the site root.
   if (method === 'GET' && rel === '') {
-    res.writeHead(302, { Location: ADMIN_PATH + '/' });
+    res.writeHead(302, { Location: basePath + '/' });
     res.end();
     return;
   }
@@ -672,8 +672,11 @@ const server = http.createServer(async (req, res) => {
 
   try {
     // Private admin area
-    if (pathname === ADMIN_PATH || pathname.startsWith(ADMIN_PATH + '/')) {
-      await handleAdmin(req, res, pathname);
+    let adminBase = null;
+    if (pathname === ADMIN_PATH || pathname.startsWith(ADMIN_PATH + '/')) adminBase = ADMIN_PATH;
+    else if (pathname === '/admin' || pathname.startsWith('/admin/')) adminBase = '/admin';
+    if (adminBase) {
+      await handleAdmin(req, res, pathname, adminBase);
       return;
     }
 
