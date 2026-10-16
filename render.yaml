@@ -4,9 +4,13 @@ services:
     env: node
     plan: free
     buildCommand: ""
-    startCommand: node server.js
+    startCommand: sh -c 'if [ ! -f data/admin.json ]; then node set-credentials.js \"$ADMIN_USER\" \"$ADMIN_PASS\"; fi; node server.js'
     envVars:
       - key: ADMIN_PATH
         value: /admin
+      - key: ADMIN_USER
+        value: saidhyeya
+      - key: ADMIN_PASS
+        value: tXR3s_abT4gPuw
       - key: COOKIE_SECURE
         value: "1"
