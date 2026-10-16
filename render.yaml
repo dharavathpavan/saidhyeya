@@ -1,0 +1,12 @@
+services:
+  - type: web
+    name: sai-dhyeya-portfolio
+    env: node
+    plan: free
+    buildCommand: ""
+    startCommand: node server.js
+    envVars:
+      - key: ADMIN_PATH
+        value: /admin
+      - key: COOKIE_SECURE
+        value: "1"
