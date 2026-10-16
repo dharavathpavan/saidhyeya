@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sai Dhyeya — Creative UI/UX Designer</title>
+<meta name="description" content="Portfolio of Sai Dhyeya, a creative UI/UX designer crafting modern, user-centred digital products and web applications.">
+<script src="js/boot.js"></script>
+<link rel="preload" as="image" href="assets/images/hero-portrait.jpg">
+<link rel="stylesheet" href="css/fonts.css">
+<link rel="stylesheet" href="css/styles.css">
+<noscript><link rel="stylesheet" href="css/noscript.css"></noscript>
+</head>
+<body>
+
+<a class="skip-link" href="#main">Skip to content</a>
+
+<!-- ============ Page loader ============ -->
+<div class="page-loader" id="page-loader" aria-hidden="true">
+  <div class="page-loader__inner">
+    <span class="page-loader__logo">Sai Dhyeya</span>
+    <span class="page-loader__track"><span class="page-loader__fill"></span></span>
+  </div>
+</div>
+
+<!-- ============ Header ============ -->
+<header class="site-header">
+  <a class="logo" href="#home" data-cms="brand.logo">Sai Dhyeya</a>
+
+  <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="primary-nav" aria-label="Toggle navigation">
+    <span class="nav-toggle__bar"></span>
+    <span class="nav-toggle__bar"></span>
+    <span class="nav-toggle__bar"></span>
+  </button>
+
+  <nav class="site-nav" id="primary-nav" aria-label="Primary">
+    <ul class="site-nav__list" data-cms-list="nav">
+      <li><a href="#home">Home</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#tools">Tools</a></li>
+      <li><a href="#project">Project</a></li>
+      <li><a href="#education">Education</a></li>
+    </ul>
+  </nav>
+</header>
+
+<main id="main">
+
+  <!-- ============ Hero ============ -->
+  <section class="hero" id="home">
+    <div class="glow glow--hero" aria-hidden="true"></div>
+    <div class="container hero__grid">
+      <div class="hero__text">
+        <h1 class="hero__title reveal" data-cms="hero.title">I&rsquo;am Sai Dhyeya</h1>
+        <p class="hero__subtitle reveal reveal--1" data-cms="hero.subtitle">Creative UI/UX designer</p>
+        <p class="hero__desc reveal reveal--2" data-cms="hero.description">I design modern user centered digital products, web applications that delights users and accelerates business growth</p>
+        <div class="hero__actions reveal reveal--3">
+          <a class="btn btn--ghost" href="#contact" data-cms-href="hero.primary.href" data-cms="hero.primary.label">Get in touch</a>
+          <a class="btn btn--primary" href="#" aria-label="Download resume" data-cms-href="hero.secondary.href" data-cms="hero.secondary.label">Resume</a>
+        </div>
+      </div>
+      <div class="hero__media reveal reveal--2">
+        <img class="hero__portrait" src="assets/images/hero-portrait.jpg" width="1170" height="1413" alt="Sai Dhyeya sitting at a cafe table" data-cms-src="hero.portrait" data-cms-alt="hero.portraitAlt">
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ About ============ -->
+  <section class="section about" id="about">
+    <div class="container">
+      <span class="pill reveal" data-cms="about.pill">About me</span>
+      <h2 class="section__title reveal" data-cms="about.title">Who is Sai Dhyeya ?</h2>
+      <p class="about__text reveal" data-cms="about.text">I hold a Bachelor&rsquo;s degree in Computer Science Engineering, where I developed a strong foundation in technology and problem-solving. While studying engineering, I discovered my interest in design and creativity, which led me to pursue UI/UX design as a way to combine logical thinking with visual storytelling. What drew me to this field was the ability to create meaningful digital experiences by understanding user needs and transforming complex ideas into simple, intuitive, and user-friendly designs. With a technical background, I enjoy collaborating closely with developers and stakeholders to ensure designs are both visually engaging and functionally sound. Today, I focus on designing clean, responsive, and user-centered interfaces, continuously learning and refining my skills to create better digital experiences. Currently, I work as a Junior UI/UX Designer at Hetero Healthcare, where I contribute to building clean, accessible, and user-friendly digital experiences within the healthcare ecosystem. I believe good design should be purposeful, accessible, and grounded in real-world usability. I am continuously learning, refining my skills, and striving to create digital experiences that make a meaningful impact for users. With hands-on experience working on multiple web projects across healthcare, startups, I have developed a user-centered approach to design. I actively apply user research, wireframing, prototyping, and responsive design principles to ensure that each solution addresses real user needs while aligning with business goals. My technical background also helps me collaborate effectively with developers, enabling smoother handoffs and more practical design solutions.</p>
+    </div>
+  </section>
+
+  <!-- ============ Tools ============ -->
+  <section class="section tools" id="tools">
+    <div class="container">
+      <span class="pill reveal" data-cms="tools.pill">Tools</span>
+
+      <ul class="tools__list reveal" data-cms-list="tools">
+        <li class="tool">
+          <span class="tool__circle">
+            <svg class="tool__figma" viewBox="0 0 38 57" role="img" aria-label="Figma">
+              <path fill="#1ABCFE" d="M19 28.5a9.5 9.5 0 1 1 19 0 9.5 9.5 0 0 1-19 0z"/>
+              <path fill="#0ACF83" d="M0 47.5A9.5 9.5 0 0 1 9.5 38H19v9.5a9.5 9.5 0 0 1-19 0z"/>
+              <path fill="#FF7262" d="M19 0v19h9.5a9.5 9.5 0 1 0 0-19H19z"/>
+              <path fill="#F24E1E" d="M0 9.5A9.5 9.5 0 0 0 9.5 19H19V0H9.5A9.5 9.5 0 0 0 0 9.5z"/>
+              <path fill="#A259FF" d="M0 28.5A9.5 9.5 0 0 0 9.5 38H19V19H9.5A9.5 9.5 0 0 0 0 28.5z"/>
+            </svg>
+          </span>
+        </li>
+        <li class="tool">
+          <span class="tool__circle">
+            <svg class="tool__badge" viewBox="0 0 48 48" role="img" aria-label="Adobe Photoshop">
+              <rect width="48" height="48" rx="11" fill="#001E36"/>
+              <text x="24" y="34" text-anchor="middle" font-family="Poppins, sans-serif" font-size="24" font-weight="600" fill="#31A8FF">Ps</text>
+            </svg>
+          </span>
+        </li>
+        <li class="tool">
+          <span class="tool__circle">
+            <svg class="tool__badge" viewBox="0 0 48 48" role="img" aria-label="Adobe XD">
+              <rect width="48" height="48" rx="11" fill="#470137"/>
+              <text x="24" y="34" text-anchor="middle" font-family="Poppins, sans-serif" font-size="24" font-weight="600" fill="#FF61F6">Xd</text>
+            </svg>
+          </span>
+        </li>
+        <li class="tool">
+          <span class="tool__circle">
+            <svg class="tool__openai" viewBox="0 0 48 48" role="img" aria-label="OpenAI ChatGPT">
+              <circle cx="24" cy="24" r="24" fill="#000000"/>
+              <g transform="translate(11 11) scale(1.0833)">
+                <path fill="#FFFFFF" d="M22.2819 9.8211a5.9847 5.9847 0 0 0-.5157-4.9108 6.0462 6.0462 0 0 0-6.5098-2.9A6.0651 6.0651 0 0 0 4.9807 4.1818a5.9847 5.9847 0 0 0-3.9977 2.9 6.0462 6.0462 0 0 0 .7427 7.0966 5.98 5.98 0 0 0 .511 4.9107 6.051 6.051 0 0 0 6.5146 2.9001A5.9847 5.9847 0 0 0 13.2599 24a6.0557 6.0557 0 0 0 5.7718-4.2058 5.9894 5.9894 0 0 0 3.9977-2.9001 6.0557 6.0557 0 0 0-.7475-7.0729zm-9.022 12.6081a4.4755 4.4755 0 0 1-2.8764-1.0408l.1419-.0804 4.7783-2.7582a.7948.7948 0 0 0 .3927-.6813v-6.7369l2.02 1.1686a.071.071 0 0 1 .038.052v5.5826a4.504 4.504 0 0 1-4.4945 4.4944zm-9.6607-4.1254a4.4708 4.4708 0 0 1-.5346-3.0137l.142.0852 4.783 2.7582a.7712.7712 0 0 0 .7806 0l5.8428-3.3685v2.3324a.0804.0804 0 0 1-.0332.0615L9.74 19.9502a4.4992 4.4992 0 0 1-6.1408-1.6464zM2.3408 7.8956a4.485 4.485 0 0 1 2.3655-1.9728V11.6a.7664.7664 0 0 0 .3879.6765l5.8144 3.3543-2.0201 1.1685a.0757.0757 0 0 1-.071 0l-4.8303-2.7865A4.504 4.504 0 0 1 2.3408 7.872zm16.5963 3.8558L13.1038 8.364 15.1192 7.2a.0757.0757 0 0 1 .071 0l4.8303 2.7913a4.4944 4.4944 0 0 1-.6765 8.1042v-5.6772a.79.79 0 0 0-.407-.667zm2.0107-3.0231l-.142-.0852-4.7735-2.7818a.7759.7759 0 0 0-.7854 0L9.409 9.2297V6.8974a.0662.0662 0 0 1 .0284-.0615l4.8303-2.7866a4.4992 4.4992 0 0 1 6.6802 4.66zM8.3065 12.863l-2.02-1.1638a.0804.0804 0 0 1-.038-.0567V6.0742a4.4992 4.4992 0 0 1 7.3757-3.4537l-.142.0805L8.704 5.459a.7948.7948 0 0 0-.3927.6813zm1.0976-2.3654l2.602-1.4998 2.6069 1.4998v2.9994l-2.5974 1.4997-2.6067-1.4997Z"/>
+              </g>
+            </svg>
+          </span>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ============ Projects ============ -->
+  <section class="section projects" id="project">
+    <div class="container">
+      <span class="pill pill--lg reveal" data-cms="projects.pill">Projects</span>
+
+      <div class="projects__list" data-cms-list="projects">
+        <article class="project reveal">
+          <div class="project__media">
+            <div class="laptop">
+              <div class="laptop__screen">
+                <img src="assets/images/care-nova.jpg" width="1920" height="1080" alt="CareNova website homepage for advanced joint pain diagnosis" loading="lazy">
+              </div>
+              <div class="laptop__base"><span class="laptop__notch"></span></div>
+            </div>
+          </div>
+          <div class="project__body">
+            <div class="glow glow--project" aria-hidden="true"></div>
+            <h3 class="project__title">CareNova</h3>
+            <p class="project__desc">It&rsquo;s a website To provide effective and compassionate joint pain management by addressing through tailored medical care.</p>
+            <a class="btn btn--prototype" href="#"><span>View prototype</span></a>
+          </div>
+        </article>
+
+        <article class="project project--reverse reveal">
+          <div class="project__media">
+            <div class="laptop">
+              <div class="laptop__screen">
+                <img src="assets/images/hetero-healthcare.jpg" width="452" height="248" alt="Hetero Healthcare multi hospital management dashboard" loading="lazy">
+              </div>
+              <div class="laptop__base"><span class="laptop__notch"></span></div>
+            </div>
+          </div>
+          <div class="project__body">
+            <div class="glow glow--project" aria-hidden="true"></div>
+            <h3 class="project__title">Hetero Healthcare</h3>
+            <p class="project__desc">A multi hospital management system designed to simplify attendance, leaves, and internal healthcare workflows across teams.</p>
+            <a class="btn btn--prototype" href="#"><span>View prototype</span></a>
+          </div>
+        </article>
+
+        <article class="project reveal">
+          <div class="project__media">
+            <img class="project__phones" src="assets/images/azista.png" width="549" height="376" alt="Azista mobile app screens for project and weather station monitoring" loading="lazy">
+          </div>
+          <div class="project__body">
+            <div class="glow glow--project" aria-hidden="true"></div>
+            <h3 class="project__title">Azista</h3>
+            <p class="project__desc">A mobile app for monitoring projects and weather stations, with dashboards, maintenance tracking, and field-ready workflows.</p>
+            <a class="btn btn--prototype" href="#"><span>View prototype</span></a>
+          </div>
+        </article>
+      </div>
+
+      <div class="projects__more reveal">
+        <a class="btn btn--primary" href="#" data-cms-href="projects.more.href" data-cms="projects.more.label">All projects</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ Education ============ -->
+  <section class="section education" id="education">
+    <div class="container">
+      <span class="pill pill--lg reveal" data-cms="education.pill">Education</span>
+
+      <ol class="timeline" data-cms-list="education">
+        <li class="timeline__item reveal">
+          <h3 class="timeline__title">HETERO HEALTHCARE COMPANY <span class="timeline__date">&ndash; Feb 2025 - Sep 2026</span></h3>
+          <p class="timeline__meta">Junior UI/UX designer</p>
+          <p class="timeline__meta">Hyderabad</p>
+        </li>
+        <li class="timeline__item reveal">
+          <h3 class="timeline__title">Sri Indu College of Engineering &amp; Technology <span class="timeline__date">&ndash; 2020-2024</span></h3>
+          <p class="timeline__meta">Computer science &amp; engineering</p>
+          <p class="timeline__meta">Hyderabad</p>
+        </li>
+        <li class="timeline__item reveal">
+          <h3 class="timeline__title">Urbane Junior College <span class="timeline__date">&ndash; 2018-2020</span></h3>
+          <p class="timeline__meta">Computer science &amp; engineering</p>
+          <p class="timeline__meta">Hyderabad</p>
+        </li>
+        <li class="timeline__item reveal">
+          <h3 class="timeline__title">Sri Chaitanya Techno school <span class="timeline__date">&ndash; 2017-2018</span></h3>
+          <p class="timeline__meta">SSC</p>
+          <p class="timeline__meta">Hyderabad</p>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- ============ Get in touch ============ -->
+  <section class="section contact" id="contact">
+    <div class="container">
+      <span class="pill pill--lg reveal" data-cms="contact.pill">Get in touch</span>
+
+      <div class="contact__cards reveal" data-cms-list="contactCards">
+        <a class="contact-card" href="tel:+4915510452093">
+          <span class="contact-card__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.9.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/>
+            </svg>
+          </span>
+          <span class="contact-card__divider" aria-hidden="true"></span>
+          <span class="contact-card__value">+49 15510452093</span>
+        </a>
+
+        <a class="contact-card" href="mailto:saidhyeya0603@gmail.com">
+          <span class="contact-card__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="2" y="4" width="20" height="16" rx="2"/>
+              <path d="m22 7-10 6L2 7"/>
+            </svg>
+          </span>
+          <span class="contact-card__divider" aria-hidden="true"></span>
+          <span class="contact-card__value">saidhyeya0603@gmail.com</span>
+        </a>
+      </div>
+
+      <!-- ============ Contact form ============ -->
+      <form class="contact-form reveal" id="contact-form" novalidate>
+        <h3 class="contact-form__title" data-cms="contact.form.title">Send me a message</h3>
+        <p class="contact-form__subtitle" data-cms="contact.form.subtitle">Have a project in mind or just want to say hello? Drop a message below and I will get back to you.</p>
+
+        <div class="contact-form__grid">
+          <label class="contact-form__field">
+            <span class="contact-form__label" data-cms="contact.form.nameLabel">Your name</span>
+            <input class="contact-form__input" type="text" name="name" required autocomplete="name" maxlength="120" data-cms-ph="contact.form.namePlaceholder" placeholder="Jane Doe">
+          </label>
+
+          <label class="contact-form__field">
+            <span class="contact-form__label" data-cms="contact.form.emailLabel">Email address</span>
+            <input class="contact-form__input" type="email" name="email" required autocomplete="email" maxlength="200" data-cms-ph="contact.form.emailPlaceholder" placeholder="jane@example.com">
+          </label>
+
+          <label class="contact-form__field contact-form__field--wide">
+            <span class="contact-form__label" data-cms="contact.form.subjectLabel">Subject</span>
+            <input class="contact-form__input" type="text" name="subject" autocomplete="off" maxlength="200" data-cms-ph="contact.form.subjectPlaceholder" placeholder="Project enquiry">
+          </label>
+
+          <label class="contact-form__field contact-form__field--wide">
+            <span class="contact-form__label" data-cms="contact.form.messageLabel">Message</span>
+            <textarea class="contact-form__input contact-form__textarea" name="message" rows="5" required maxlength="5000" data-cms-ph="contact.form.messagePlaceholder" placeholder="Tell me a little about your project…"></textarea>
+          </label>
+        </div>
+
+        <div class="contact-form__hp" aria-hidden="true">
+          <label>Company<input type="text" name="company" tabindex="-1" autocomplete="off"></label>
+        </div>
+
+        <p class="contact-form__status" id="contact-status" role="status" aria-live="polite"></p>
+
+        <button class="btn btn--primary contact-form__submit" type="submit" data-cms="contact.form.button">Send message</button>
+      </form>
+    </div>
+  </section>
+
+</main>
+
+<!-- ============ Footer ============ -->
+<footer class="site-footer">
+  <div class="container">
+    <hr class="site-footer__divider">
+    <p class="site-footer__text"><span class="site-footer__lead" data-cms="brand.footerLead">Built by</span> <span data-cms="brand.footerName">@Sai Dhyeya</span></p>
+  </div>
+</footer>
+
+<script src="js/cms.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>

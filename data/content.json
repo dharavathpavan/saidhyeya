@@ -1,0 +1,171 @@
+{
+  "brand": {
+    "logo": "Sai Dhyeya",
+    "footerLead": "DESIGNED BY",
+    "footerName": "@Sai Dhyeya"
+  },
+  "nav": [
+    {
+      "label": "Home",
+      "href": "#home"
+    },
+    {
+      "label": "About",
+      "href": "#about"
+    },
+    {
+      "label": "Tools",
+      "href": "#tools"
+    },
+    {
+      "label": "Project",
+      "href": "#project"
+    },
+    {
+      "label": "Education",
+      "href": "#education"
+    }
+  ],
+  "hero": {
+    "title": "I’am Sai Dhyeya",
+    "subtitle": "Creative UI/UX designer",
+    "description": "I design modern user centered digital products, web applications that delights users and accelerates business growth",
+    "primary": {
+      "label": "Get in touch",
+      "href": "#contact"
+    },
+    "secondary": {
+      "label": "Resume",
+      "href": "#"
+    },
+    "portrait": "assets/images/hero-portrait.jpg",
+    "portraitAlt": "Sai Dhyeya sitting at a cafe table",
+    "portraitW": 1170,
+    "portraitH": 1413
+  },
+  "about": {
+    "pill": "About me",
+    "title": "Who is Sai Dhyeya ?",
+    "text": "I hold a Bachelor’s degree in Computer Science Engineering, where I developed a strong foundation in technology and problem-solving. While studying engineering, I discovered my interest in design and creativity, which led me to pursue UI/UX design as a way to combine logical thinking with visual storytelling. What drew me to this field was the ability to create meaningful digital experiences by understanding user needs and transforming complex ideas into simple, intuitive, and user-friendly designs. With a technical background, I enjoy collaborating closely with developers and stakeholders to ensure designs are both visually engaging and functionally sound. Today, I focus on designing clean, responsive, and user-centered interfaces, continuously learning and refining my skills to create better digital experiences. Currently, I work as a Junior UI/UX Designer at Hetero Healthcare, where I contribute to building clean, accessible, and user-friendly digital experiences within the healthcare ecosystem. I believe good design should be purposeful, accessible, and grounded in real-world usability. I am continuously learning, refining my skills, and striving to create digital experiences that make a meaningful impact for users. With hands-on experience working on multiple web projects across healthcare, startups, I have developed a user-centered approach to design. I actively apply user research, wireframing, prototyping, and responsive design principles to ensure that each solution addresses real user needs while aligning with business goals. My technical background also helps me collaborate effectively with developers, enabling smoother handoffs and more practical design solutions."
+  },
+  "tools": {
+    "pill": "Tools",
+    "items": [
+      {
+        "label": "Figma",
+        "icon": "figma"
+      },
+      {
+        "label": "Adobe Photoshop",
+        "icon": "photoshop"
+      },
+      {
+        "label": "Adobe XD",
+        "icon": "xd"
+      },
+      {
+        "label": "OpenAI ChatGPT",
+        "icon": "openai"
+      }
+    ]
+  },
+  "projects": {
+    "pill": "Projects",
+    "buttonLabel": "View prototype",
+    "items": [
+      {
+        "title": "CareNova",
+        "description": "It’s a website To provide effective and compassionate joint pain management by addressing through tailored medical care.",
+        "layout": "laptop",
+        "image": "assets/images/care-nova.jpg",
+        "imageAlt": "CareNova website homepage for advanced joint pain diagnosis",
+        "imageW": 1920,
+        "imageH": 1080,
+        "href": "#"
+      },
+      {
+        "title": "Hetero Healthcare",
+        "description": "A multi hospital management system designed to simplify attendance, leaves, and internal healthcare workflows across teams.",
+        "layout": "laptop-reverse",
+        "image": "assets/images/hetero-healthcare.jpg",
+        "imageAlt": "Hetero Healthcare multi hospital management dashboard",
+        "imageW": 452,
+        "imageH": 248,
+        "href": "#"
+      },
+      {
+        "title": "Azista",
+        "description": "A mobile app for monitoring projects and weather stations, with dashboards, maintenance tracking, and field-ready workflows.",
+        "layout": "phones",
+        "image": "assets/images/azista.png",
+        "imageAlt": "Azista mobile app screens for project and weather station monitoring",
+        "imageW": 549,
+        "imageH": 376,
+        "href": "#"
+      }
+    ],
+    "more": {
+      "label": "All projects",
+      "href": "#"
+    }
+  },
+  "education": {
+    "pill": "Education",
+    "items": [
+      {
+        "title": "HETERO HEALTHCARE COMPANY",
+        "date": "– Feb 2025 - Sep 2026",
+        "role": "Junior UI/UX designer",
+        "location": "Hyderabad"
+      },
+      {
+        "title": "Sri Indu College of Engineering & Technology",
+        "date": "– 2020-2024",
+        "role": "Computer science & engineering",
+        "location": "Hyderabad"
+      },
+      {
+        "title": "Urbane Junior College",
+        "date": "– 2018-2020",
+        "role": "Computer science & engineering",
+        "location": "Hyderabad"
+      },
+      {
+        "title": "Sri Chaitanya Techno school",
+        "date": "– 2017-2018",
+        "role": "SSC",
+        "location": "Hyderabad"
+      }
+    ]
+  },
+  "contact": {
+    "pill": "Get in touch",
+    "cards": [
+      {
+        "type": "phone",
+        "value": "+49 15510452093",
+        "href": "tel:+4915510452093"
+      },
+      {
+        "type": "email",
+        "value": "saidhyeya0603@gmail.com",
+        "href": "mailto:saidhyeya0603@gmail.com"
+      }
+    ],
+    "form": {
+      "title": "Send me a message",
+      "subtitle": "Have a project in mind or just want to say hello? Drop a message below and I will get back to you.",
+      "nameLabel": "Your name",
+      "namePlaceholder": "Jane Doe",
+      "emailLabel": "Email address",
+      "emailPlaceholder": "jane@example.com",
+      "subjectLabel": "Subject",
+      "subjectPlaceholder": "Project enquiry",
+      "messageLabel": "Message",
+      "messagePlaceholder": "Tell me a little about your project…",
+      "button": "Send message",
+      "success": "Thanks! Your message has been sent successfully.",
+      "error": "Sorry, something went wrong. Please try again."
+    }
+  }
+}

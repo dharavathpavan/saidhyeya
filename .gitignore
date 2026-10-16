@@ -1,0 +1,13 @@
+# Dependencies (none required, kept for safety)
+node_modules/
+
+# Local environment / secrets
+.env
+
+# Never commit credentials or private message data
+data/admin.json
+data/messages.json
+data/*.tmp
+
+# Design-analysis scratch folder
+_ref/

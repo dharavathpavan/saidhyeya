@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Admin · Dashboard</title>
+<link rel="stylesheet" href="app.css">
+</head>
+<body class="admin-body">
+
+<header class="admin-topbar">
+  <div class="admin-topbar__left">
+    <span class="admin-brand">Sai Dhyeya</span>
+    <span class="admin-badge">Admin</span>
+  </div>
+  <div class="admin-topbar__right">
+    <a class="admin-link" href="/" target="_blank" rel="noopener">View site ↗</a>
+    <span class="admin-user" id="admin-user"></span>
+    <button class="btn-admin btn-admin--ghost" type="button" id="logout-btn">Sign out</button>
+  </div>
+</header>
+
+<nav class="admin-tabs" aria-label="Admin sections">
+  <button class="admin-tab is-active" type="button" data-tab="content">Content</button>
+  <button class="admin-tab" type="button" data-tab="messages">
+    Inbox <span class="admin-tab__count" id="msg-count" hidden>0</span>
+  </button>
+  <button class="admin-tab" type="button" data-tab="account">Account</button>
+</nav>
+
+<main class="admin-main">
+
+  <!-- ============ CONTENT ============ -->
+  <section class="admin-panel is-active" data-panel="content">
+    <div class="admin-actions-bar">
+      <div>
+        <h2 class="admin-h2">Site content</h2>
+        <p class="admin-sub">Everything below is shown on the public site. Changes go live on save.</p>
+      </div>
+      <div class="admin-actions-bar__buttons">
+        <button class="btn-admin btn-admin--ghost" type="button" id="content-reload">Discard changes</button>
+        <button class="btn-admin btn-admin--primary" type="button" id="content-save">Save changes</button>
+      </div>
+    </div>
+    <p class="form-status" id="content-status" role="status" aria-live="polite"></p>
+    <div id="content-editor" class="editor"></div>
+  </section>
+
+  <!-- ============ INBOX ============ -->
+  <section class="admin-panel" data-panel="messages">
+    <div class="admin-actions-bar">
+      <div>
+        <h2 class="admin-h2">Contact messages</h2>
+        <p class="admin-sub">Submissions from the site's contact form.</p>
+      </div>
+      <div class="admin-actions-bar__buttons">
+        <button class="btn-admin btn-admin--ghost" type="button" id="messages-reload">Refresh</button>
+        <button class="btn-admin btn-admin--danger" type="button" id="messages-clear">Delete all</button>
+      </div>
+    </div>
+    <p class="form-status" id="messages-status" role="status" aria-live="polite"></p>
+    <div class="inbox">
+      <ul class="inbox__list" id="inbox-list"></ul>
+      <div class="inbox__detail" id="inbox-detail">
+        <p class="inbox__empty">Select a message to read it.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ ACCOUNT ============ -->
+  <section class="admin-panel" data-panel="account">
+    <h2 class="admin-h2">Account</h2>
+    <p class="admin-sub">Change the password used to sign in to this panel.</p>
+
+    <form class="admin-card" id="password-form" novalidate>
+      <label class="field">
+        <span class="field__label">Current password</span>
+        <input class="field__input" type="password" name="currentPassword" autocomplete="current-password" required>
+      </label>
+      <label class="field">
+        <span class="field__label">New password</span>
+        <input class="field__input" type="password" name="newPassword" autocomplete="new-password" required minlength="8">
+      </label>
+      <label class="field">
+        <span class="field__label">Repeat new password</span>
+        <input class="field__input" type="password" name="repeatPassword" autocomplete="new-password" required minlength="8">
+      </label>
+      <p class="form-status" id="password-status" role="status" aria-live="polite"></p>
+      <button class="btn-admin btn-admin--primary" type="submit">Update password</button>
+    </form>
+
+    <div class="admin-card admin-card--muted">
+      <h3 class="admin-h3">Security notes</h3>
+      <ul class="admin-list">
+        <li>Your password is stored only as a salted scrypt hash — never in plain text.</li>
+        <li>The admin URL is private; keep it out of public repos and screenshots.</li>
+        <li>Sessions expire after 8 hours of inactivity.</li>
+      </ul>
+    </div>
+  </section>
+
+</main>
+
+<div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+
+<script src="app.js" defer></script>
+</body>
+</html>

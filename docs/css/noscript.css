@@ -1,0 +1,3 @@
+/* Loaded only inside <noscript>. Without JavaScript nothing would ever
+   dismiss the page loader, so hide it entirely. */
+.page-loader{display:none}

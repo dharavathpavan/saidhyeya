@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Admin · Sign in</title>
+<link rel="stylesheet" href="app.css">
+</head>
+<body class="admin-login-body">
+
+<main class="login-wrap">
+  <form class="login-card" id="login-form" novalidate>
+    <p class="login-card__eyebrow">Restricted area</p>
+    <h1 class="login-card__title">Admin sign in</h1>
+    <p class="login-card__hint">Enter your credentials to manage the portfolio.</p>
+
+    <label class="field">
+      <span class="field__label">Username</span>
+      <input class="field__input" type="text" name="username" autocomplete="username" required autofocus>
+    </label>
+
+    <label class="field">
+      <span class="field__label">Password</span>
+      <input class="field__input" type="password" name="password" autocomplete="current-password" required>
+    </label>
+
+    <p class="form-status" id="login-status" role="status" aria-live="polite"></p>
+
+    <button class="btn-admin btn-admin--primary login-card__submit" type="submit" id="login-submit">
+      Sign in
+    </button>
+  </form>
+</main>
+
+<script src="app.js" defer></script>
+</body>
+</html>

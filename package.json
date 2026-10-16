@@ -1,0 +1,16 @@
+{
+  "name": "sai-dhyeya-portfolio",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Sai Dhyeya UI/UX portfolio — responsive static site plus a zero-dependency Node backend with a private admin panel and contact inbox.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "credentials": "node set-credentials.js",
+    "build:pages": "node build-pages.js"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "license": "UNLICENSED"
+}
