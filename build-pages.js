@@ -7,7 +7,7 @@ const path = require('path');
 const ROOT = __dirname;
 const OUT = path.join(ROOT, 'docs');
 
-const PUBLIC_FILES = ['index.html', 'robots.txt', 'sitemap.xml'];
+const PUBLIC_FILES = ['index.html', 'robots.txt', 'sitemap.xml', 'favicon.svg', 'favicon.png', 'apple-touch-icon.png'];
 const PUBLIC_DIRS = ['css', 'js', 'assets', 'de'];
 
 function rmrf(p) {
