@@ -72,8 +72,7 @@ const MIME = {
   '.otf': 'font/otf',
   '.txt': 'text/plain; charset=utf-8',
   '.webmanifest': 'application/manifest+json',
-  '.map': 'application/json; charset=utf-8'
-};
+  '.pdf': 'application/pdf',};
 
 const UPLOAD_TYPES = {
   '.png': 'image/png',
