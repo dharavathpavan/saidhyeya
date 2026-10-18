@@ -7,7 +7,7 @@ const path = require('path');
 const ROOT = __dirname;
 const OUT = path.join(ROOT, 'docs');
 
-const PUBLIC_FILES = ['index.html'];
+const PUBLIC_FILES = ['index.html', 'robots.txt', 'sitemap.xml'];
 const PUBLIC_DIRS = ['css', 'js', 'assets'];
 
 function rmrf(p) {

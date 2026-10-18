@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+
+Disallow: /admin/
+Disallow: /sd-panel-x7k29f/
+
+Sitemap: https://saidhyeya.in/sitemap.xml
