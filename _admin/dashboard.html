@@ -26,6 +26,7 @@
   <button class="admin-tab" type="button" data-tab="messages">
     Inbox <span class="admin-tab__count" id="msg-count" hidden>0</span>
   </button>
+  <button class="admin-tab" type="button" data-tab="analytics">Analytics</button>
   <button class="admin-tab" type="button" data-tab="account">Account</button>
 </nav>
 
@@ -65,6 +66,34 @@
       <div class="inbox__detail" id="inbox-detail">
         <p class="inbox__empty">Select a message to read it.</p>
       </div>
+    </div>
+  </section>
+
+<!-- ============ ANALYTICS ============ -->
+  <section class="admin-panel" data-panel="analytics">
+    <div class="admin-actions-bar">
+      <div>
+        <h2 class="admin-h2">Analytics</h2>
+        <p class="admin-sub">Visitors, page views and actions taken on the public site.</p>
+      </div>
+      <div class="admin-actions-bar__buttons">
+        <button class="btn-admin btn-admin--ghost" type="button" id="analytics-reload">Refresh</button>
+        <button class="btn-admin btn-admin--danger" type="button" id="analytics-clear">Clear all</button>
+      </div>
+    </div>
+    <p class="form-status" id="analytics-status" role="status" aria-live="polite"></p>
+    <div id="analytics-summary" class="analytics-grid"></div>
+    <div class="analytics-block">
+      <h3 class="admin-h3">Visits (last 14 days)</h3>
+      <div id="analytics-days" class="analytics-days"></div>
+    </div>
+    <div class="analytics-block">
+      <h3 class="admin-h3">Top pages</h3>
+      <ul id="analytics-pages" class="analytics-list"></ul>
+    </div>
+    <div class="analytics-block">
+      <h3 class="admin-h3">Recent events</h3>
+      <ul id="analytics-events" class="analytics-list"></ul>
     </div>
   </section>
 

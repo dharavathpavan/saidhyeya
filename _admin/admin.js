@@ -542,6 +542,90 @@
     });
   }
 
+/* ---------------- analytics ---------------- */
+
+  var analyticsData = null;
+
+  function statCard(label, value) {
+    var card = el('div', 'stat-card');
+    card.appendChild(el('div', 'stat-card__value', String(value)));
+    card.appendChild(el('div', 'stat-card__label', label));
+    return card;
+  }
+
+  function renderAnalytics() {
+    var summary = document.getElementById('analytics-summary');
+    var daysHost = document.getElementById('analytics-days');
+    var pagesHost = document.getElementById('analytics-pages');
+    var eventsHost = document.getElementById('analytics-events');
+    if (!summary) return;
+    summary.textContent = '';
+    daysHost.textContent = '';
+    pagesHost.textContent = '';
+    eventsHost.textContent = '';
+
+    if (!analyticsData) {
+      summary.appendChild(el('p', 'inbox__empty', 'No analytics data yet.'));
+      return;
+    }
+
+    var s = analyticsData;
+    summary.appendChild(statCard('Unique visitors', s.uniqueVisitors));
+    summary.appendChild(statCard('Sessions', s.sessions));
+    summary.appendChild(statCard('Page views', s.pageViews));
+    summary.appendChild(statCard('Resume clicks', s.resumeClicks));
+    summary.appendChild(statCard('CTA clicks', s.ctaClicks));
+    summary.appendChild(statCard('Nav clicks', s.navigationClicks));
+    summary.appendChild(statCard('Contact submissions', s.contactSubmissions));
+    summary.appendChild(statCard('Total events', s.totalEvents));
+
+    (s.visitsByDay || []).forEach(function (d) {
+      var row = el('div', 'analytics-day');
+      row.appendChild(el('span', 'analytics-day__date', d.date));
+      row.appendChild(el('span', 'analytics-day__bar'));
+      var fill = el('span', 'analytics-day__fill');
+      var max = Math.max.apply(null, (s.visitsByDay || []).map(function (x) { return x.count; }).concat([1]));
+      fill.style.width = Math.round((d.count / max) * 100) + '%';
+      row.querySelector('.analytics-day__bar').appendChild(fill);
+      row.appendChild(el('span', 'analytics-day__count', String(d.count)));
+      daysHost.appendChild(row);
+    });
+
+    if (!s.topPages || !s.topPages.length) {
+      pagesHost.appendChild(el('li', 'inbox__empty', 'No page views yet.'));
+    } else {
+      s.topPages.forEach(function (p) {
+        var li = el('li', 'analytics-row');
+        li.appendChild(el('span', 'analytics-row__label', p.path));
+        li.appendChild(el('span', 'analytics-row__value', String(p.count)));
+        pagesHost.appendChild(li);
+      });
+    }
+
+    if (!s.recent || !s.recent.length) {
+      eventsHost.appendChild(el('li', 'inbox__empty', 'No events yet.'));
+    } else {
+      s.recent.forEach(function (e) {
+        var li = el('li', 'analytics-row');
+        var meta = (e.type || '') + ' · ' + (e.path || '/') + (e.target ? ' · ' + e.target : '');
+        li.appendChild(el('span', 'analytics-row__label', meta));
+        li.appendChild(el('span', 'analytics-row__value', (e.createdAt || '').replace('T', ' ').slice(0, 19)));
+        eventsHost.appendChild(li);
+      });
+    }
+  }
+
+  function loadAnalytics() {
+    setStatus(document.getElementById('analytics-status'), 'Loading…', '');
+    return api('/api/analytics').then(function (data) {
+      analyticsData = data && typeof data === 'object' ? data : null;
+      renderAnalytics();
+      setStatus(document.getElementById('analytics-status'), '', '');
+    }).catch(function (err) {
+      setStatus(document.getElementById('analytics-status'), err.message, 'error');
+    });
+  }
+
   /* ---------------- dashboard boot ---------------- */
 
   function initDashboard() {
@@ -554,6 +638,7 @@
 
       loadContent();
       loadMessages();
+      loadAnalytics();
 
       // Tabs
       document.querySelectorAll('.admin-tab').forEach(function (tab) {
@@ -566,6 +651,7 @@
             p.classList.toggle('is-active', p.getAttribute('data-panel') === name);
           });
           if (name === 'messages') loadMessages();
+          if (name === 'analytics') loadAnalytics();
         });
       });
 
@@ -589,6 +675,20 @@
           detail.appendChild(el('p', 'inbox__empty', 'Select a message to read it.'));
           toast('Inbox cleared');
           return loadMessages();
+        }).catch(function (err) { toast(err.message); });
+      });
+
+      var analyticsReload = document.getElementById('analytics-reload');
+      if (analyticsReload) analyticsReload.addEventListener('click', function () {
+        loadAnalytics();
+        toast('Refreshed');
+      });
+      var analyticsClear = document.getElementById('analytics-clear');
+      if (analyticsClear) analyticsClear.addEventListener('click', function () {
+        if (!confirm('Delete all analytics data permanently?')) return;
+        api('/api/analytics', { method: 'DELETE' }).then(function () {
+          toast('Analytics cleared');
+          return loadAnalytics();
         }).catch(function (err) { toast(err.message); });
       });
 

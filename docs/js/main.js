@@ -186,12 +186,15 @@
             form.reset();
             [form.name, form.email, form.message].forEach(function (f) { mark(f, false); });
             setStatus(result.data && result.data.message ? result.data.message : 'Thanks! Your message has been sent.', 'ok');
+            if (window.sdTrack) window.sdTrack('contact_submit', { target: 'contact-form', action: form.subject.value.trim() });
           } else {
             setStatus((result.data && result.data.error) || 'Sorry, something went wrong. Please try again.', 'error');
+            if (window.sdTrack) window.sdTrack('contact_error', { target: 'contact-form', action: (result.data && result.data.error) || 'unknown' });
           }
         })
         .catch(function () {
-          setStatus('Network error — please check your connection and try again.', 'error');
+          setStatus('Network error - please check your connection and try again.', 'error');
+          if (window.sdTrack) window.sdTrack('contact_error', { target: 'contact-form', action: 'network' });
         })
         .then(function () {
           if (submit) submit.disabled = false;

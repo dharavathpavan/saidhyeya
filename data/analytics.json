@@ -1,0 +1,15 @@
+[
+  {
+    "id": "6735e355-4acb-4f12-9f1f-bb604dad12b4",
+    "type": "page_view",
+    "path": "/",
+    "visitorId": "v1",
+    "sessionId": "s1",
+    "target": null,
+    "action": null,
+    "meta": null,
+    "createdAt": "2026-10-18T18:31:42.190Z",
+    "ip": "127.0.0.1",
+    "userAgent": "curl/8.19.0"
+  }
+]

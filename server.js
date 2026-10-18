@@ -31,6 +31,8 @@ const ADMIN_PATH = normalizeAdminPath(process.env.ADMIN_PATH || '/sd-panel-x7k29
 const CONTENT_FILE = 'content.json';
 const MESSAGES_FILE = 'messages.json';
 const ADMIN_FILE = 'admin.json';
+const ANALYTICS_FILE = 'analytics.json';
+const ANALYTICS_MAX_EVENTS = 20000;
 
 const SESSION_TTL_MS = 8 * 60 * 60 * 1000; // 8 hours
 const LOGIN_MAX_ATTEMPTS = 6;
@@ -98,6 +100,7 @@ function normalizeAdminPath(value) {
 const sessions = new Map(); // token -> session
 const loginAttempts = new Map(); // ip -> { count, first, until }
 const contactHits = new Map(); // ip -> [timestamps]
+const analyticsHits = new Map(); // ip -> [timestamps]
 
 function clientIp(req) {
   return (req.socket && req.socket.remoteAddress) || 'unknown';
@@ -239,6 +242,19 @@ function recordContactHit(ip) {
   contactHits.set(ip, hits);
 }
 
+function analyticsAllowed(ip) {
+  const now = Date.now();
+  const windowMs = 60 * 1000;
+  const hits = (analyticsHits.get(ip) || []).filter((t) => now - t < windowMs);
+  analyticsHits.set(ip, hits);
+  return hits.length < 120;
+}
+function recordAnalyticsHit(ip) {
+  const hits = analyticsHits.get(ip) || [];
+  hits.push(Date.now());
+  analyticsHits.set(ip, hits);
+}
+
 /* ------------------------------------------------------------------ */
 /* static files                                                        */
 /* ------------------------------------------------------------------ */
@@ -331,6 +347,11 @@ function handlePublicApi(req, res, pathname) {
     return true;
   }
 
+  if (pathname === '/api/track' && req.method === 'POST') {
+    handleTrack(req, res);
+    return true;
+  }
+
   return false;
 }
 
@@ -394,8 +415,116 @@ async function handleContact(req, res) {
 }
 
 /* ------------------------------------------------------------------ */
+/* analytics                                                           */
+/* ------------------------------------------------------------------ */
+
+const ANALYTICS_TYPES = new Set([
+  'page_view', 'navigation_click', 'resume_click', 'cta_click',
+  'button_click', 'link_click', 'contact_submit', 'contact_error',
+  'section_view'
+]);
+
+function analyticsSummary() {
+  const events = readJSON(ANALYTICS_FILE, []);
+  const list = Array.isArray(events) ? events : [];
+  const now = Date.now();
+  const dayMs = 24 * 60 * 60 * 1000;
+  const days = 14;
+  const visitsByDay = [];
+  for (let i = days - 1; i >= 0; i--) {
+    const date = new Date(now - i * dayMs).toISOString().slice(0, 10);
+    visitsByDay.push({
+      date,
+      count: list.filter((e) => e.type === 'page_view' && String(e.createdAt || '').slice(0, 10) === date).length
+    });
+  }
+  const uniqueVisitors = new Set(list.map((e) => e.visitorId || e.ip || 'unknown')).size;
+  const sessions = new Set(list.map((e) => e.sessionId).filter(Boolean)).size;
+  const countType = (t) => list.filter((e) => e.type === t).length;
+  const topPagesMap = {};
+  list.forEach((e) => {
+    if (e.type === 'page_view') {
+      const p = e.path || '/';
+      topPagesMap[p] = (topPagesMap[p] || 0) + 1;
+    }
+  });
+  const topPages = Object.keys(topPagesMap)
+    .map((p) => ({ path: p, count: topPagesMap[p] }))
+    .sort((a, b) => b.count - a.count)
+    .slice(0, 8);
+  const recent = list.slice(-50).reverse();
+  return {
+    totalEvents: list.length,
+    uniqueVisitors,
+    sessions,
+    pageViews: countType('page_view'),
+    navigationClicks: countType('navigation_click'),
+    resumeClicks: countType('resume_click'),
+    ctaClicks: countType('cta_click') + countType('button_click'),
+    contactSubmissions: countType('contact_submit'),
+    contactErrors: countType('contact_error'),
+    topPages,
+    visitsByDay,
+    recent
+  };
+}
+
+async function handleTrack(req, res) {
+  const ip = clientIp(req);
+  if (!analyticsAllowed(ip)) {
+    sendJSON(res, 429, { error: 'Too many events' });
+    return;
+  }
+  let body;
+  try {
+    body = await readJSONBody(req, 16 * 1024);
+  } catch (err) {
+    sendJSON(res, err.status || 400, { error: err.message });
+    return;
+  }
+  const type = String(body.type || '').trim();
+  if (!ANALYTICS_TYPES.has(type)) {
+    sendJSON(res, 422, { error: 'Unknown event type' });
+    return;
+  }
+  const record = {
+    id: crypto.randomUUID(),
+    type,
+    path: String(body.path || '/').slice(0, 200),
+    visitorId: body.visitorId ? String(body.visitorId).slice(0, 64) : null,
+    sessionId: body.sessionId ? String(body.sessionId).slice(0, 64) : null,
+    target: body.target ? String(body.target).slice(0, 200) : null,
+    action: body.action ? String(body.action).slice(0, 200) : null,
+    meta: (body.meta && typeof body.meta === 'object') ? JSON.stringify(body.meta).slice(0, 500) : null,
+    createdAt: new Date().toISOString(),
+    ip,
+    userAgent: String(req.headers['user-agent'] || '').slice(0, 200)
+  };
+  const events = readJSON(ANALYTICS_FILE, []);
+  const list = Array.isArray(events) ? events : [];
+  list.push(record);
+  if (list.length > ANALYTICS_MAX_EVENTS) list.splice(0, list.length - ANALYTICS_MAX_EVENTS);
+  writeJSON(ANALYTICS_FILE, list);
+  recordAnalyticsHit(ip);
+  sendJSON(res, 200, { ok: true });
+}
+
+/* ------------------------------------------------------------------ */
 /* admin API                                                           */
 /* ------------------------------------------------------------------ */
+
+function handleAdminAnalytics(req, res, method) {
+  if (method === 'GET') {
+    sendJSON(res, 200, analyticsSummary());
+    return true;
+  }
+  if (method === 'DELETE') {
+    writeJSON(ANALYTICS_FILE, []);
+    sendJSON(res, 200, { ok: true });
+    return true;
+  }
+  return false;
+}
 
 function requireSession(req, res) {
   const session = getSession(req);
@@ -649,6 +778,18 @@ async function handleAdmin(req, res, pathname, basePath = ADMIN_PATH) {
       algorithm: 'scrypt',
       updatedAt: new Date().toISOString()
     });
+    sendJSON(res, 200, { ok: true });
+    return;
+  }
+
+  if (rel === '/api/analytics' && method === 'GET') {
+    sendJSON(res, 200, analyticsSummary());
+    return;
+  }
+
+  if (rel === '/api/analytics' && method === 'DELETE') {
+    if (!requireCsrf(req, res, session)) return;
+    writeJSON(ANALYTICS_FILE, []);
     sendJSON(res, 200, { ok: true });
     return;
   }
