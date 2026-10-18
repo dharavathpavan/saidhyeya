@@ -73,24 +73,41 @@
   <section class="admin-panel" data-panel="analytics">
     <div class="admin-actions-bar">
       <div>
-        <h2 class="admin-h2">Analytics</h2>
+        <h2 class="admin-h2">Analytics dashboard</h2>
         <p class="admin-sub">Visitors, page views and actions taken on the public site.</p>
       </div>
       <div class="admin-actions-bar__buttons">
+        <div class="analytics-filters">
+          <button class="btn-admin btn-admin--ghost btn-admin--small" type="button" data-days="7">7 days</button>
+          <button class="btn-admin btn-admin--ghost btn-admin--small is-active" type="button" data-days="14">14 days</button>
+          <button class="btn-admin btn-admin--ghost btn-admin--small" type="button" data-days="30">30 days</button>
+        </div>
         <button class="btn-admin btn-admin--ghost" type="button" id="analytics-reload">Refresh</button>
+        <button class="btn-admin btn-admin--ghost" type="button" id="analytics-export">Export CSV</button>
         <button class="btn-admin btn-admin--danger" type="button" id="analytics-clear">Clear all</button>
       </div>
     </div>
     <p class="form-status" id="analytics-status" role="status" aria-live="polite"></p>
+
     <div id="analytics-summary" class="analytics-grid"></div>
+
     <div class="analytics-block">
-      <h3 class="admin-h3">Visits (last 14 days)</h3>
+      <h3 class="admin-h3">Visits trend</h3>
+      <div id="analytics-chart" class="analytics-chart"></div>
       <div id="analytics-days" class="analytics-days"></div>
     </div>
-    <div class="analytics-block">
-      <h3 class="admin-h3">Top pages</h3>
-      <ul id="analytics-pages" class="analytics-list"></ul>
+
+    <div class="analytics-two-col">
+      <div class="analytics-block">
+        <h3 class="admin-h3">Top pages</h3>
+        <ul id="analytics-pages" class="analytics-list"></ul>
+      </div>
+      <div class="analytics-block">
+        <h3 class="admin-h3">Top actions</h3>
+        <ul id="analytics-actions" class="analytics-list"></ul>
+      </div>
     </div>
+
     <div class="analytics-block">
       <h3 class="admin-h3">Recent events</h3>
       <ul id="analytics-events" class="analytics-list"></ul>

@@ -424,14 +424,15 @@ const ANALYTICS_TYPES = new Set([
   'section_view'
 ]);
 
-function analyticsSummary() {
+function analyticsSummary(days) {
+  days = Math.max(1, Math.min(90, Number(days) || 14));
   const events = readJSON(ANALYTICS_FILE, []);
   const list = Array.isArray(events) ? events : [];
   const now = Date.now();
   const dayMs = 24 * 60 * 60 * 1000;
-  const days = 14;
+  const totalDays = days;
   const visitsByDay = [];
-  for (let i = days - 1; i >= 0; i--) {
+  for (let i = totalDays - 1; i >= 0; i--) {
     const date = new Date(now - i * dayMs).toISOString().slice(0, 10);
     visitsByDay.push({
       date,
@@ -783,7 +784,9 @@ async function handleAdmin(req, res, pathname, basePath = ADMIN_PATH) {
   }
 
   if (rel === '/api/analytics' && method === 'GET') {
-    sendJSON(res, 200, analyticsSummary());
+    const url = new URL(req.url, 'http://localhost');
+    const days = Number(url.searchParams.get('days')) || 14;
+    sendJSON(res, 200, analyticsSummary(days));
     return;
   }
 

@@ -553,15 +553,32 @@
     return card;
   }
 
+  var analyticsDays = 14;
+
+  function actionCounts() {
+    if (!analyticsData || !analyticsData.recent) return [];
+    var counts = {};
+    analyticsData.recent.forEach(function (e) {
+      var key = e.type || 'unknown';
+      counts[key] = (counts[key] || 0) + 1;
+    });
+    return Object.keys(counts).map(function (k) { return { label: k, count: counts[k] }; })
+      .sort(function (a, b) { return b.count - a.count; });
+  }
+
   function renderAnalytics() {
     var summary = document.getElementById('analytics-summary');
+    var chart = document.getElementById('analytics-chart');
     var daysHost = document.getElementById('analytics-days');
     var pagesHost = document.getElementById('analytics-pages');
+    var actionsHost = document.getElementById('analytics-actions');
     var eventsHost = document.getElementById('analytics-events');
     if (!summary) return;
     summary.textContent = '';
+    chart.textContent = '';
     daysHost.textContent = '';
     pagesHost.textContent = '';
+    actionsHost.textContent = '';
     eventsHost.textContent = '';
 
     if (!analyticsData) {
@@ -579,13 +596,24 @@
     summary.appendChild(statCard('Contact submissions', s.contactSubmissions));
     summary.appendChild(statCard('Total events', s.totalEvents));
 
+    // Visits chart (bar)
+    var maxDay = Math.max.apply(null, (s.visitsByDay || []).map(function (x) { return x.count; }).concat([1]));
+    (s.visitsByDay || []).forEach(function (d) {
+      var col = el('div', 'chart-col');
+      var bar = el('div', 'chart-bar');
+      bar.style.height = Math.max(4, Math.round((d.count / maxDay) * 100)) + '%';
+      bar.title = d.date + ': ' + d.count;
+      col.appendChild(bar);
+      col.appendChild(el('div', 'chart-label', d.date.slice(5)));
+      chart.appendChild(col);
+    });
+
     (s.visitsByDay || []).forEach(function (d) {
       var row = el('div', 'analytics-day');
       row.appendChild(el('span', 'analytics-day__date', d.date));
       row.appendChild(el('span', 'analytics-day__bar'));
       var fill = el('span', 'analytics-day__fill');
-      var max = Math.max.apply(null, (s.visitsByDay || []).map(function (x) { return x.count; }).concat([1]));
-      fill.style.width = Math.round((d.count / max) * 100) + '%';
+      fill.style.width = Math.round((d.count / maxDay) * 100) + '%';
       row.querySelector('.analytics-day__bar').appendChild(fill);
       row.appendChild(el('span', 'analytics-day__count', String(d.count)));
       daysHost.appendChild(row);
@@ -602,6 +630,18 @@
       });
     }
 
+    var actions = actionCounts();
+    if (!actions.length) {
+      actionsHost.appendChild(el('li', 'inbox__empty', 'No events yet.'));
+    } else {
+      actions.forEach(function (a) {
+        var li = el('li', 'analytics-row');
+        li.appendChild(el('span', 'analytics-row__label', a.label));
+        li.appendChild(el('span', 'analytics-row__value', String(a.count)));
+        actionsHost.appendChild(li);
+      });
+    }
+
     if (!s.recent || !s.recent.length) {
       eventsHost.appendChild(el('li', 'inbox__empty', 'No events yet.'));
     } else {
@@ -615,15 +655,34 @@
     }
   }
 
-  function loadAnalytics() {
+  function loadAnalytics(days) {
+    if (days) analyticsDays = days;
     setStatus(document.getElementById('analytics-status'), 'Loading…', '');
-    return api('/api/analytics').then(function (data) {
+    return api('/api/analytics?days=' + encodeURIComponent(analyticsDays)).then(function (data) {
       analyticsData = data && typeof data === 'object' ? data : null;
       renderAnalytics();
       setStatus(document.getElementById('analytics-status'), '', '');
     }).catch(function (err) {
       setStatus(document.getElementById('analytics-status'), err.message, 'error');
     });
+  }
+
+  function exportAnalyticsCsv() {
+    if (!analyticsData || !analyticsData.recent) { toast('No data to export'); return; }
+    var rows = [['type', 'path', 'target', 'visitorId', 'sessionId', 'createdAt']];
+    analyticsData.recent.forEach(function (e) {
+      rows.push([e.type, e.path, e.target || '', e.visitorId || '', e.sessionId || '', e.createdAt || '']);
+    });
+    var csv = rows.map(function (r) { return r.map(function (c) { return '"' + String(c).replace(/"/g, '""') + '"'; }).join(','); }).join('\n');
+    var blob = new Blob([csv], { type: 'text/csv' });
+    var url = URL.createObjectURL(blob);
+    var a = document.createElement('a');
+    a.href = url;
+    a.download = 'analytics.csv';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
   }
 
   /* ---------------- dashboard boot ---------------- */
@@ -691,6 +750,16 @@
           return loadAnalytics();
         }).catch(function (err) { toast(err.message); });
       });
+
+      document.querySelectorAll('[data-days]').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          document.querySelectorAll('[data-days]').forEach(function (b) { b.classList.remove('is-active'); });
+          btn.classList.add('is-active');
+          loadAnalytics(Number(btn.getAttribute('data-days')));
+        });
+      });
+      var analyticsExport = document.getElementById('analytics-export');
+      if (analyticsExport) analyticsExport.addEventListener('click', exportAnalyticsCsv);
 
       document.getElementById('logout-btn').addEventListener('click', function () {
         api('/api/logout', { method: 'POST' }).then(function () {
