@@ -347,6 +347,11 @@ function handlePublicApi(req, res, pathname) {
     return true;
   }
 
+  if ((pathname === '/health' || pathname === '/api/health') && (req.method === 'GET' || req.method === 'HEAD')) {
+    sendJSON(res, 200, { ok: true, status: 'healthy', uptime: Math.round(process.uptime()) });
+    return true;
+  }
+
   if (pathname === '/api/track' && req.method === 'POST') {
     handleTrack(req, res);
     return true;
@@ -824,7 +829,7 @@ const server = http.createServer(async (req, res) => {
     }
 
     // Public API
-    if (pathname.startsWith('/api/')) {
+    if (pathname.startsWith('/api/') || pathname === '/health' || pathname === '/api/health') {
       if (handlePublicApi(req, res, pathname)) return;
       sendJSON(res, 404, { error: 'Unknown endpoint' });
       return;
