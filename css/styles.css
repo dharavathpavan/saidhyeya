@@ -818,6 +818,15 @@ html{scroll-behavior:smooth}
 .logo{transition:transform .2s ease,letter-spacing .2s ease}
 .logo:hover{transform:scale(1.03);letter-spacing:.01em}
 
+.lang-switch{
+  margin-left:auto;margin-right:16px;
+  padding:6px 12px;border:1px solid rgba(255,255,255,.25);border-radius:999px;
+  color:#fff;font-family:var(--font-head);font-size:13px;font-weight:600;
+  text-decoration:none;transition:background .2s ease,border-color .2s ease;
+}
+.lang-switch:hover{background:rgba(255,255,255,.08);border-color:#fff}
+@media (max-width:767px){.lang-switch{margin-right:8px;padding:5px 10px;font-size:12px}}
+
 @media (prefers-reduced-motion:reduce){
   html{scroll-behavior:auto}
   *{transition-duration:.01ms !important;animation-duration:.01ms !important}
